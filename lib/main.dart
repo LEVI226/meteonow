@@ -15,6 +15,7 @@ import 'features/favorites/data/favorites_local_data_source.dart';
 import 'features/favorites/data/favorites_remote_data_source.dart';
 import 'features/favorites/data/favorites_repository_impl.dart';
 import 'features/favorites/domain/favorites_repository.dart';
+import 'features/favorites/presentation/favorites_controller.dart';
 import 'features/profile/data/settings_local_data_source.dart';
 import 'features/profile/presentation/settings_controller.dart';
 import 'features/weather/data/open_meteo_api.dart';
@@ -97,6 +98,7 @@ class MeteoNowApp extends StatefulWidget {
 
 class _MeteoNowAppState extends State<MeteoNowApp> {
   late final _router = buildRouter(authRepository: widget.authRepository);
+  late final _favoritesController = FavoritesController(widget.favoritesRepository);
 
   @override
   Widget build(BuildContext context) {
@@ -104,17 +106,20 @@ class _MeteoNowAppState extends State<MeteoNowApp> {
       authRepository: widget.authRepository,
       weatherRepository: widget.weatherRepository,
       favoritesRepository: widget.favoritesRepository,
-      child: SettingsScope(
-        controller: widget.settingsController,
-        child: AnimatedBuilder(
-          animation: widget.settingsController,
-          builder: (context, _) => MaterialApp.router(
-            title: 'MétéoNow',
-            debugShowCheckedModeBanner: false,
-            theme: AppTheme.light(),
-            darkTheme: AppTheme.dark(),
-            themeMode: widget.settingsController.themeMode,
-            routerConfig: _router,
+      child: FavoritesControllerScope(
+        controller: _favoritesController,
+        child: SettingsScope(
+          controller: widget.settingsController,
+          child: AnimatedBuilder(
+            animation: widget.settingsController,
+            builder: (context, _) => MaterialApp.router(
+              title: 'MétéoNow',
+              debugShowCheckedModeBanner: false,
+              theme: AppTheme.light(),
+              darkTheme: AppTheme.dark(),
+              themeMode: widget.settingsController.themeMode,
+              routerConfig: _router,
+            ),
           ),
         ),
       ),

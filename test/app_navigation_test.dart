@@ -11,6 +11,7 @@ import 'package:meteonow/features/auth/domain/app_user.dart';
 import 'package:meteonow/features/auth/domain/auth_repository.dart';
 import 'package:meteonow/features/favorites/domain/favorite_location.dart';
 import 'package:meteonow/features/favorites/domain/favorites_repository.dart';
+import 'package:meteonow/features/favorites/presentation/favorites_controller.dart';
 import 'package:meteonow/features/profile/data/settings_local_data_source.dart';
 import 'package:meteonow/features/profile/domain/app_settings.dart';
 import 'package:meteonow/features/profile/presentation/settings_controller.dart';
@@ -61,7 +62,7 @@ class _MockSettingsLocalDataSource extends Mock implements SettingsLocalDataSour
 
 class _FakeFavoritesRepository implements FavoritesRepository {
   @override
-  Future<Result<List<FavoriteLocation>>> getFavorites() => throw UnimplementedError();
+  Future<Result<List<FavoriteLocation>>> getFavorites() async => const Ok(<FavoriteLocation>[]);
 
   @override
   Future<Result<void>> addFavorite(FavoriteLocation location) => throw UnimplementedError();
@@ -80,15 +81,19 @@ void main() {
     when(() => settingsLocal.getTemperatureUnit()).thenReturn(TemperatureUnit.celsius);
     when(() => settingsLocal.getHomeLocation()).thenReturn(null);
     final settingsController = SettingsController(settingsLocal);
+    final favoritesController = FavoritesController(_FakeFavoritesRepository());
 
     await tester.pumpWidget(
       RepositoryScope(
         authRepository: auth,
         weatherRepository: _FakeWeatherRepository(),
         favoritesRepository: _FakeFavoritesRepository(),
-        child: SettingsScope(
-          controller: settingsController,
-          child: MaterialApp.router(theme: AppTheme.light(), routerConfig: router),
+        child: FavoritesControllerScope(
+          controller: favoritesController,
+          child: SettingsScope(
+            controller: settingsController,
+            child: MaterialApp.router(theme: AppTheme.light(), routerConfig: router),
+          ),
         ),
       ),
     );
@@ -103,7 +108,7 @@ void main() {
 
     await tester.tap(find.widgetWithText(NavigationDestination, 'Search'));
     await tester.pumpAndSettle();
-    expect(find.text('search-screen-stub'), findsOneWidget);
+    expect(find.text('Search for a city to see its current weather.'), findsOneWidget);
 
     await tester.tap(find.widgetWithText(NavigationDestination, 'Favorites'));
     await tester.pumpAndSettle();
