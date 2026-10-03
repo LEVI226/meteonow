@@ -25,4 +25,12 @@ class SettingsLocalDataSource {
   }
 
   Future<void> setTemperatureUnit(TemperatureUnit unit) => _box.put('temperatureUnit', unit.name);
+
+  Map<String, dynamic>? getHomeLocation() {
+    final raw = _box.get('homeLocation');
+    return raw == null ? null : Map<String, dynamic>.from(raw as Map);
+  }
+
+  Future<void> setHomeLocation({required String name, required double latitude, required double longitude}) =>
+      _box.put('homeLocation', {'name': name, 'latitude': latitude, 'longitude': longitude});
 }

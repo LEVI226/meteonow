@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 
 import 'package:meteonow/core/router/app_router.dart';
 import 'package:meteonow/core/router/repository_scope.dart';
@@ -10,9 +11,13 @@ import 'package:meteonow/features/auth/domain/app_user.dart';
 import 'package:meteonow/features/auth/domain/auth_repository.dart';
 import 'package:meteonow/features/favorites/domain/favorite_location.dart';
 import 'package:meteonow/features/favorites/domain/favorites_repository.dart';
+import 'package:meteonow/features/profile/data/settings_local_data_source.dart';
+import 'package:meteonow/features/profile/domain/app_settings.dart';
+import 'package:meteonow/features/profile/presentation/settings_controller.dart';
 import 'package:meteonow/features/weather/domain/geocoded_location.dart';
 import 'package:meteonow/features/weather/domain/weather_repository.dart';
 import 'package:meteonow/features/weather/domain/weather_snapshot.dart';
+import 'package:meteonow/core/errors/app_failure.dart';
 import 'package:meteonow/core/errors/result.dart';
 
 class _FakeAuthRepository implements AuthRepository {
@@ -45,12 +50,14 @@ class _FakeAuthRepository implements AuthRepository {
 
 class _FakeWeatherRepository implements WeatherRepository {
   @override
-  Future<Result<WeatherSnapshot>> getWeather({required double latitude, required double longitude}) =>
-      throw UnimplementedError();
+  Future<Result<WeatherSnapshot>> getWeather({required double latitude, required double longitude}) async =>
+      const Err(NetworkFailure());
 
   @override
   Future<Result<List<GeocodedLocation>>> searchLocations(String query) => throw UnimplementedError();
 }
+
+class _MockSettingsLocalDataSource extends Mock implements SettingsLocalDataSource {}
 
 class _FakeFavoritesRepository implements FavoritesRepository {
   @override
@@ -68,12 +75,21 @@ void main() {
     final auth = _FakeAuthRepository();
     final router = buildRouter(authRepository: auth);
 
+    final settingsLocal = _MockSettingsLocalDataSource();
+    when(() => settingsLocal.getThemeMode()).thenReturn(ThemeMode.system);
+    when(() => settingsLocal.getTemperatureUnit()).thenReturn(TemperatureUnit.celsius);
+    when(() => settingsLocal.getHomeLocation()).thenReturn(null);
+    final settingsController = SettingsController(settingsLocal);
+
     await tester.pumpWidget(
       RepositoryScope(
         authRepository: auth,
         weatherRepository: _FakeWeatherRepository(),
         favoritesRepository: _FakeFavoritesRepository(),
-        child: MaterialApp.router(theme: AppTheme.light(), routerConfig: router),
+        child: SettingsScope(
+          controller: settingsController,
+          child: MaterialApp.router(theme: AppTheme.light(), routerConfig: router),
+        ),
       ),
     );
     await tester.pumpAndSettle();
@@ -83,7 +99,7 @@ void main() {
     auth.emit(const AppUser(id: 'user-1', email: 'yannick@example.com'));
     await tester.pumpAndSettle();
 
-    expect(find.text('home-screen-stub'), findsOneWidget);
+    expect(find.text('Ouagadougou'), findsOneWidget);
 
     await tester.tap(find.widgetWithText(NavigationDestination, 'Search'));
     await tester.pumpAndSettle();
