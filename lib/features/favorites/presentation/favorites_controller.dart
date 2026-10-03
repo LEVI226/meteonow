@@ -60,6 +60,15 @@ class FavoritesController extends ChangeNotifier {
     }
     return result;
   }
+
+  Future<Result<void>> removeFavoriteById(String id) async {
+    final result = await _repository.removeFavorite(id);
+    if (result case Ok<void>()) {
+      _favorites.removeWhere((f) => f.id == id);
+      notifyListeners();
+    }
+    return result;
+  }
 }
 
 class FavoritesControllerScope extends InheritedNotifier<FavoritesController> {

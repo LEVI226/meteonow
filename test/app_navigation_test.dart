@@ -112,6 +112,9 @@ void main() {
 
     await tester.tap(find.widgetWithText(NavigationDestination, 'Favorites'));
     await tester.pumpAndSettle();
-    expect(find.text('favorites-screen-stub'), findsOneWidget);
+    expect(
+      find.text('No favorites yet. Search for a city and tap the bookmark icon to save it here.'),
+      findsOneWidget,
+    );
   });
 }
