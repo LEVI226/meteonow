@@ -1,0 +1,11 @@
+analyzer:
+  exclude:
+    - build/**
+    - android/**
+    - web/**
+    - windows/**
+include: package:lints/recommended.yaml
+
+linter:
+  rules:
+    prefer_single_quotes: true
