@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:dio/dio.dart';
 import 'package:meteonow/features/weather/data/open_meteo_api.dart';
 import 'package:meteonow/features/weather/domain/weather_snapshot.dart';
 

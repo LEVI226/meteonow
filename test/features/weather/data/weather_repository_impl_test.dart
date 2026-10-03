@@ -7,8 +7,6 @@ import 'package:meteonow/features/weather/data/weather_local_data_source.dart';
 import 'package:meteonow/features/weather/data/weather_repository_impl.dart';
 import 'package:meteonow/features/weather/domain/current_weather.dart';
 import 'package:meteonow/features/weather/domain/weather_snapshot.dart';
-import 'package:meteonow/features/weather/domain/daily_forecast.dart';
-import 'package:meteonow/features/weather/domain/hourly_forecast.dart';
 
 class MockOpenMeteoApi extends Mock implements OpenMeteoApi {}
 
