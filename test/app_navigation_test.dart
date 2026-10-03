@@ -78,7 +78,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    expect(find.text('login-screen-stub'), findsOneWidget);
+    expect(find.text('Welcome back'), findsOneWidget);
 
     auth.emit(const AppUser(id: 'user-1', email: 'yannick@example.com'));
     await tester.pumpAndSettle();
