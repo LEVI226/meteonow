@@ -25,8 +25,8 @@ class AppTheme {
 
   static ThemeData _themeFrom(ColorScheme colorScheme) {
     final base = ThemeData(useMaterial3: true, colorScheme: colorScheme);
-    final theme = base.copyWith(
-      textTheme: GoogleFonts.interTextTheme() as TextTheme?,
+    return base.copyWith(
+      textTheme: GoogleFonts.interTextTheme(base.textTheme),
       scaffoldBackgroundColor: colorScheme.surface,
       cardTheme: CardThemeData(
         color: colorScheme.surface,
@@ -49,6 +49,5 @@ class AppTheme {
         ),
       ),
     );
-    return theme;
   }
 }
