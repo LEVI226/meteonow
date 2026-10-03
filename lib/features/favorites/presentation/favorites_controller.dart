@@ -11,6 +11,7 @@ class FavoritesController extends ChangeNotifier {
   final FavoritesRepository _repository;
   List<FavoriteLocation> _favorites = [];
   bool isLoading = false;
+  DateTime? lastSyncedAt;
 
   List<FavoriteLocation> get favorites => List.unmodifiable(_favorites);
 
@@ -31,6 +32,7 @@ class FavoritesController extends ChangeNotifier {
     final result = await _repository.getFavorites();
     if (result case Ok<List<FavoriteLocation>>(:final value)) {
       _favorites = value;
+      lastSyncedAt = DateTime.now();
     }
     isLoading = false;
     notifyListeners();
