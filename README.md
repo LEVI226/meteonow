@@ -59,7 +59,7 @@ flutter run -d chrome --dart-define-from-file=env.json
 | Authentication (login/register/logout, JWT/OAuth) | `features/auth/` — `LoginScreen`, `RegisterScreen`, `AuthRepositoryImpl` wrapping Supabase Auth (JWT + refresh handled by the SDK) |
 | At least 3 screens with REST API data | Home (`home_screen.dart`, Open-Meteo), Search (`search_screen.dart`, Open-Meteo geocoding), Favorites (`favorites_screen.dart`, Supabase REST + Open-Meteo) |
 | Local data caching | `features/weather/data/weather_local_data_source.dart` and `features/favorites/data/favorites_local_data_source.dart` (Hive) |
-| Offline mode | `WeatherRepositoryImpl`/`FavoritesRepositoryImpl` fall back to the Hive cache on a network failure, surfaced via `SyncStatusPill` |
+| Offline mode | `WeatherRepositoryImpl`/`FavoritesRepositoryImpl` fall back to the Hive cache on a network failure; the weather fallback is surfaced to the user via `SyncStatusPill` on Home |
 | Network error handling with user messages | `Result<T>`/`Failure` (`core/errors/`) — every repository returns a typed failure with a user-facing message, shown via `SnackBar` or an inline retry card, never a raw exception |
 | Clean Architecture / Feature-First | `lib/features/*/{data,domain,presentation}` throughout |
 | Repository pattern | `WeatherRepository`, `AuthRepository`, `FavoritesRepository` interfaces + impls |
