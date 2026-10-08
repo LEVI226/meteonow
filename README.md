@@ -12,9 +12,13 @@ A weather app with real authentication, offline caching, and a synced favorites 
 
 ## Screenshots
 
-| Login | Home | Profile |
+| Login | Home | Search |
 |---|---|---|
-| ![Login screen](screenshots/ecranDeconnexion.png) | ![Home screen with live weather](screenshots/ecranDaccueil.png) | ![Profile screen](screenshots/profile.png) |
+| ![Login screen](screenshots/ecranDeconnexion.png) | ![Home screen with live weather](screenshots/ecranDaccueil.png) | ![Search screen](screenshots/search.png) |
+
+| Favorites | Profile | |
+|---|---|---|
+| ![Favorites screen](screenshots/favorites.png) | ![Profile screen](screenshots/profile.png) | |
 
 ## Architecture
 
