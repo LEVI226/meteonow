@@ -22,7 +22,10 @@ class WeatherSnapshot {
 
     final hourlyTimes = (hourly['time'] as List).cast<String>();
     final hourlyVisibility = (hourly['visibility'] as List).cast<num>();
-    final hourIndex = hourlyTimes.indexOf(current['time'] as String);
+    final currentTime = DateTime.parse(current['time'] as String);
+    final hourlyDateTimes = hourlyTimes.map(DateTime.parse).toList();
+    var hourIndex = hourlyDateTimes.indexWhere((t) => t.isAfter(currentTime));
+    hourIndex = hourIndex == -1 ? hourlyDateTimes.length - 1 : hourIndex - 1;
     final visibility = hourIndex >= 0 ? hourlyVisibility[hourIndex].toDouble() : 10000.0;
 
     final hourlyTemps = (hourly['temperature_2m'] as List).cast<num>();

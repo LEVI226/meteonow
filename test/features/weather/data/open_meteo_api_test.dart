@@ -6,7 +6,7 @@ void main() {
   group('WeatherSnapshot.fromOpenMeteoJson', () {
     final fixture = {
       'current': {
-        'time': '2026-10-03T14:00',
+        'time': '2026-10-03T14:45',
         'temperature_2m': 28.4,
         'relative_humidity_2m': 65,
         'apparent_temperature': 30.1,
@@ -28,7 +28,7 @@ void main() {
       },
     };
 
-    test('parses current conditions and picks visibility from the matching hourly index', () {
+    test('parses current conditions and picks visibility from the last hourly entry at or before current time', () {
       final snapshot = WeatherSnapshot.fromOpenMeteoJson(fixture);
 
       expect(snapshot.current.temperature, 28.4);
