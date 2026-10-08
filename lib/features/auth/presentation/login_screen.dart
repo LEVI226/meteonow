@@ -123,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             Align(
                               alignment: Alignment.centerRight,
                               child: TextButton(
-                                onPressed: () => _showError('Password reset link sent to your registered email.'),
+                                onPressed: () => _showError("Password reset isn't available in this demo."),
                                 child: const Text('Forgot password?'),
                               ),
                             ),

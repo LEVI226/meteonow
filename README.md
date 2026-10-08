@@ -52,6 +52,8 @@ flutter run -d chrome --dart-define-from-file=env.json
 
 `env.json` is gitignored — never commit real credentials.
 
+Google sign-in additionally requires enabling the Google provider and configuring redirect URLs in the Supabase dashboard (Authentication → Providers / URL Configuration); without that extra setup it only works out of the box on web (`flutter run -d chrome`), since a fresh Android build has no deep-link intent-filter registered to receive the OAuth callback.
+
 ## Requirements checklist (NextFlutter rubric)
 
 | Requirement | Where |
