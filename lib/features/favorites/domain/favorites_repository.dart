@@ -7,4 +7,6 @@ abstract class FavoritesRepository {
   Future<Result<void>> addFavorite(FavoriteLocation location);
 
   Future<Result<void>> removeFavorite(String id);
+
+  Future<void> clearLocalCache();
 }

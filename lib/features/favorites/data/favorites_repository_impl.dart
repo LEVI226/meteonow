@@ -45,4 +45,7 @@ class FavoritesRepositoryImpl implements FavoritesRepository {
       return const Err(NetworkFailure('Could not remove favorite. Check your connection.'));
     }
   }
+
+  @override
+  Future<void> clearLocalCache() => _local.clear();
 }

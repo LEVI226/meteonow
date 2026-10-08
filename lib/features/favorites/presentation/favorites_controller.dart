@@ -71,6 +71,13 @@ class FavoritesController extends ChangeNotifier {
     }
     return result;
   }
+
+  Future<void> clear() async {
+    await _repository.clearLocalCache();
+    _favorites = [];
+    lastSyncedAt = null;
+    notifyListeners();
+  }
 }
 
 class FavoritesControllerScope extends InheritedNotifier<FavoritesController> {

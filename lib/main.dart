@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -10,6 +12,7 @@ import 'core/router/app_router.dart';
 import 'core/router/repository_scope.dart';
 import 'core/theme/app_theme.dart';
 import 'features/auth/data/auth_repository_impl.dart';
+import 'features/auth/domain/app_user.dart';
 import 'features/auth/domain/auth_repository.dart';
 import 'features/favorites/data/favorites_local_data_source.dart';
 import 'features/favorites/data/favorites_remote_data_source.dart';
@@ -99,6 +102,21 @@ class MeteoNowApp extends StatefulWidget {
 class _MeteoNowAppState extends State<MeteoNowApp> {
   late final _router = buildRouter(authRepository: widget.authRepository);
   late final _favoritesController = FavoritesController(widget.favoritesRepository);
+  StreamSubscription<AppUser?>? _authSubscription;
+
+  @override
+  void initState() {
+    super.initState();
+    _authSubscription = widget.authRepository.authStateChanges().listen((user) {
+      if (user == null) _favoritesController.clear();
+    });
+  }
+
+  @override
+  void dispose() {
+    _authSubscription?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

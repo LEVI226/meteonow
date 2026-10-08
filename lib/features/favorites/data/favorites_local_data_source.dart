@@ -37,4 +37,6 @@ class FavoritesLocalDataSource {
   Future<void> save(FavoriteLocation location) => _box.put(location.id, _toMap(location));
 
   Future<void> remove(String id) => _box.delete(id);
+
+  Future<void> clear() => _box.clear();
 }

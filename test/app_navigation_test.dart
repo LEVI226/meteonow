@@ -69,6 +69,9 @@ class _FakeFavoritesRepository implements FavoritesRepository {
 
   @override
   Future<Result<void>> removeFavorite(String id) => throw UnimplementedError();
+
+  @override
+  Future<void> clearLocalCache() => throw UnimplementedError();
 }
 
 void main() {
