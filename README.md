@@ -10,6 +10,12 @@ A weather app with real authentication, offline caching, and a synced favorites 
 - Favorite locations synced to your account, with offline fallback when there's no network
 - °C/°F and light/dark theme preferences, persisted locally
 
+## Screenshots
+
+| Login | Home | Profile |
+|---|---|---|
+| ![Login screen](screenshots/ecranDeconnexion.png) | ![Home screen with live weather](screenshots/ecranDaccueil.png) | ![Profile screen](screenshots/profile.png) |
+
 ## Architecture
 
 ```text
