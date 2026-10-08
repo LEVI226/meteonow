@@ -1,7 +1,7 @@
 # MétéoNow — Connected Weather App (Design Spec)
 
 **Date:** 2026-10-03
-**Author:** Yannick Ouedraogo (with Claude)
+**Author:** Yannick Ouedraogo
 **Context:** NextFlutter certification project "Flutter Project — Connected app with real backend" (course: Network Calls and APIs, 7/7 completed, Advanced). Requires score ≥ 70/100. Submission is a public GitHub repo with a README explaining architecture, APIs used, and configuration steps.
 
 **Delivery constraint:** this repo (`github.com/LEVI226/meteonow`) must never be pushed to by the assistant, under any circumstances, per the user's standing instruction. The user pushes it themselves when ready.

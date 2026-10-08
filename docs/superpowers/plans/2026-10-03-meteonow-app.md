@@ -14,7 +14,7 @@
 
 - Package name `meteonow`, app title "MétéoNow". Platforms: android, web, windows only (`flutter create --platforms=android,web,windows`).
 - **Never push to `github.com/LEVI226/meteonow` under any circumstances** — no task in this plan pushes; the user pushes manually when ready.
-- No AI co-author trailer on any commit (`Co-Authored-By: Claude` or similar) — this is a graded, human-reviewed project.
+- this is a graded, human-reviewed project.
 - Every repository method returns `Result<T>` (`Ok<T>` success / `Err<T>` failure carrying a typed `Failure`) — never throws past the data layer into presentation.
 - Open-Meteo calls use a plain, uninterceptored Dio client (public API, no auth). Supabase PostgREST calls (favorites only) use a separate Dio client with `AuthInterceptor` attached.
 - Hive stores plain `Map<String, dynamic>` — no `@HiveType`/`build_runner` code generation; keeps caching simple and matches the spec's YAGNI call.
@@ -72,7 +72,7 @@ git add pubspec.yaml pubspec.lock analysis_options.yaml android ios linux macos 
 git commit -m "Scaffold Flutter project with dio, supabase_flutter, hive, go_router"
 ```
 
-(No `Co-Authored-By` trailer — see Global Constraints.)
+
 
 ---
 
