@@ -48,7 +48,7 @@ Feature-First + Clean Architecture: each feature has its own `data` (API/Hive/Su
 
 ## Configuration
 
-This app needs a Supabase project before it can run. See `docs/superpowers/specs/2026-10-03-meteonow-app-design.md` and `supabase/favorites.sql` for the full rationale; the short version:
+This app needs a Supabase project before it can run. Open-Meteo requires no key (it's a free, anonymous public API), so Supabase is the only backend you need to provision — it also doubles as where the auth interceptor and refresh-token logic are exercised, since Open-Meteo itself has nothing to authenticate. Setup:
 
 1. Create a project at [supabase.com](https://supabase.com).
 2. In the SQL Editor, run `supabase/favorites.sql`.
